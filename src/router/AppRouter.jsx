@@ -6,6 +6,7 @@ import AdminLayout from '../layouts/AdminLayout'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import BusinessesPage from '../pages/BusinessesPage'
+import BusinessDetailPage from '../pages/BusinessDetailPage'
 
 export default function AppRouter() {
   return (
@@ -33,6 +34,16 @@ export default function AppRouter() {
               </AdminLayout>
             </ProtectedRoute>
           }
+        />
+        <Route
+            path="/businesses/:id"
+            element={
+                <ProtectedRoute>
+                <AdminLayout>
+                    <BusinessDetailPage />
+                </AdminLayout>
+                </ProtectedRoute>
+            }
         />
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
