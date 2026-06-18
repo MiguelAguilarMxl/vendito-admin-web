@@ -38,3 +38,26 @@ export async function getBusinessMetrics(id) {
   const response = await apiClient.get(`/platform/businesses/${id}/metrics`)
   return response.data
 }
+
+export async function createBusiness(payload) {
+  const response = await apiClient.post('/platform/businesses', payload)
+  return response.data
+}
+
+export async function upsertBusinessSubscription(id, payload) {
+  const response = await apiClient.post(
+    `/platform/businesses/${id}/subscription`,
+    payload,
+  )
+
+  return response.data
+}
+
+export async function createBusinessUser(id, payload) {
+  const response = await apiClient.post(
+    `/platform/businesses/${id}/users`,
+    payload,
+  )
+
+  return response.data
+}

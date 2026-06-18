@@ -5,19 +5,36 @@ export default function ActivityLogsPage() {
   const [logs, setLogs] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [action, setAction] = useState('')
+  const [entity, setEntity] = useState('')
+  const [search, setSearch] = useState('')
+
   useEffect(() => {
     loadLogs()
-  }, [])
+  }, [action, entity, search])
 
   async function loadLogs() {
     try {
-      const data = await getActivityLogs()
+      setLoading(true)
+
+      const data = await getActivityLogs({
+        action,
+        entity: entity.trim(),
+        search: search.trim(),
+      })
+
       setLogs(data)
     } catch (error) {
       console.error('Error loading activity logs', error)
     } finally {
       setLoading(false)
     }
+  }
+
+  function clearFilters() {
+    setAction('')
+    setEntity('')
+    setSearch('')
   }
 
   function getBadgeClass(action) {
@@ -49,6 +66,62 @@ export default function ActivityLogsPage() {
         <p className="mt-1 text-sm text-slate-500">
           Auditoría y trazabilidad de acciones realizadas en la plataforma.
         </p>
+      </div>
+
+      <div className="mb-6 rounded-lg bg-white p-4 shadow">
+        <div className="grid gap-4 md:grid-cols-4">
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600">
+              Buscar
+            </label>
+            <input
+              type="text"
+              placeholder="Usuario o detalle"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              className="w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-slate-500"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600">
+              Acción
+            </label>
+            <select
+              value={action}
+              onChange={(event) => setAction(event.target.value)}
+              className="w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-slate-500"
+            >
+              <option value="">Todas las acciones</option>
+              <option value="LOGIN">LOGIN</option>
+              <option value="CREATE">CREATE</option>
+              <option value="UPDATE">UPDATE</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600">
+              Entidad
+            </label>
+            <input
+              type="text"
+              placeholder="PlatformUser, Business..."
+              value={entity}
+              onChange={(event) => setEntity(event.target.value)}
+              className="w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-slate-500"
+            />
+          </div>
+
+          <div className="flex items-end">
+            <button
+              onClick={clearFilters}
+              className="w-full rounded-md border px-3 py-2 text-sm hover:bg-slate-100"
+            >
+              Limpiar filtros
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -122,7 +195,7 @@ export default function ActivityLogsPage() {
                     colSpan="5"
                     className="px-4 py-6 text-center text-slate-500"
                   >
-                    No existen registros.
+                    No existen registros con esos filtros.
                   </td>
                 </tr>
               )}
