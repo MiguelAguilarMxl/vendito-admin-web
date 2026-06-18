@@ -7,6 +7,10 @@ import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import BusinessesPage from '../pages/BusinessesPage'
 import BusinessDetailPage from '../pages/BusinessDetailPage'
+import PlatformUsersPage from '../pages/PlatformUsersPage'
+import PlansPage from '../pages/PlansPage'
+import SubscriptionsPage from '../pages/SubscriptionsPage'
+import ActivityLogsPage from '../pages/ActivityLogsPage'
 
 export default function AppRouter() {
   return (
@@ -35,15 +39,60 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
+
         <Route
-            path="/businesses/:id"
-            element={
-                <ProtectedRoute>
-                <AdminLayout>
-                    <BusinessDetailPage />
-                </AdminLayout>
-                </ProtectedRoute>
-            }
+          path="/businesses/:id"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <BusinessDetailPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/platform-users"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <PlatformUsersPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/plans"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <PlansPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/subscriptions"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <SubscriptionsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/activity-logs"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <ActivityLogsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
         />
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />

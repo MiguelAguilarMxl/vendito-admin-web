@@ -30,6 +30,22 @@ export default function Sidebar() {
         <NavLink to="/businesses" className={navClass}>
           Negocios
         </NavLink>
+
+        <NavLink to="/platform-users" className={navClass}>
+          Usuarios Plataforma
+        </NavLink>
+
+        <NavLink to="/plans" className={navClass}>
+          Planes
+        </NavLink>
+
+        <NavLink to="/subscriptions" className={navClass}>
+          Suscripciones
+        </NavLink>
+
+        <NavLink to="/activity-logs" className={navClass}>
+          Activity Logs
+        </NavLink>
       </nav>
     </aside>
   )
